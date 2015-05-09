@@ -4,6 +4,7 @@ class Lexer
     @preserveWhitespace = opts.preserveWhitespace || false
     @tokens = []
     @currentLine = 1
+    @currentOffset = 0
     i = 0
     while @chunk = sql.slice(i)
       bytesConsumed =  @keywordToken() or
@@ -27,6 +28,7 @@ class Lexer
                        @literalToken()
       throw new Error("NOTHING CONSUMED: Stopped at - '#{@chunk.slice(0,30)}'") if bytesConsumed < 1
       i += bytesConsumed
+      @currentOffset += bytesConsumed
     @token('EOF', '')
     @postProcess()
 
@@ -38,7 +40,7 @@ class Lexer
           token[0] = 'MATH_MULTI'
 
   token: (name, value) ->
-    @tokens.push([name, value, @currentLine])
+    @tokens.push([name, value, @currentLine, @currentOffset])
 
   tokenizeFromRegex: (name, regex, part=0, lengthPart=part, output=true) ->
     return 0 unless match = regex.exec(@chunk)
