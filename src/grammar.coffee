@@ -147,14 +147,11 @@ grammar =
     o 'Value SUB_SELECT_OP LEFT_PAREN List RIGHT_PAREN',  -> new Op($2, $1, $4)
     o 'Value SUB_SELECT_OP SubSelectExpression',          -> new Op($2, $1, $3)
     o 'SUB_SELECT_UNARY_OP SubSelectExpression',          -> new UnaryOp($1, $2)
+    o 'CaseStatement'
     o 'Value'
   ]
 
-  SubSelectExpression: [
-    o 'LEFT_PAREN Query RIGHT_PAREN',                     -> new SubSelect($2)
-  ]
-
-  Case: [
+  CaseStatement: [
     o 'CASE CaseWhen END',                                -> new Case($2)
     o 'CASE CaseWhen CaseElse END',                       -> new Case($2, $3)
   ]
@@ -170,6 +167,10 @@ grammar =
 
   CaseElse: [
     o 'ELSE Expression',                                  -> new CaseElse($2)
+  ]
+
+  SubSelectExpression: [
+    o 'LEFT_PAREN Query RIGHT_PAREN',                     -> new SubSelect($2)
   ]
 
   Value: [
@@ -210,7 +211,6 @@ grammar =
 
   Function: [
     o "FUNCTION LEFT_PAREN AggregateArgumentList RIGHT_PAREN",     -> new FunctionValue($1, $3)
-    o "FUNCTION LEFT_PAREN Case RIGHT_PAREN",                      -> new FunctionValue($1, $3)
   ]
 
   UserFunction: [
@@ -237,8 +237,6 @@ grammar =
     o 'STAR',                                             -> new Star()
     o 'Expression',                                       -> new Field($1)
     o 'Expression AS Literal',                            -> new Field($1, $3)
-    o 'Case',                                             -> new Field($1)
-    o 'Case AS Literal',                                  -> new Field($1, $3)
   ]
 
 tokens = []
