@@ -81,6 +81,11 @@ class Lexer
     @tokenizeFromWord('OUTER') or
     @tokenizeFromWord('ON') or
     @tokenizeFromWord('AS') or
+    @tokenizeFromWord('CASE') or
+    @tokenizeFromWord('WHEN') or
+    @tokenizeFromWord('THEN') or
+    @tokenizeFromWord('ELSE') or
+    @tokenizeFromWord('END') or
     @tokenizeFromWord('UNION') or
     @tokenizeFromWord('ALL') or
     @tokenizeFromWord('LIMIT') or
@@ -157,4 +162,3 @@ class Lexer
 
 
 exports.tokenize = (sql, opts) -> (new Lexer(sql, opts)).tokens
-

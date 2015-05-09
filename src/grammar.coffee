@@ -138,7 +138,6 @@ grammar =
     o 'HAVING Expression',                                -> new Having($2)
   ]
 
-
   Expression: [
     o 'LEFT_PAREN Expression RIGHT_PAREN',                -> $2
     o 'Expression MATH Expression',                       -> new Op($2, $1, $3)
@@ -153,6 +152,24 @@ grammar =
 
   SubSelectExpression: [
     o 'LEFT_PAREN Query RIGHT_PAREN',                     -> new SubSelect($2)
+  ]
+
+  Case: [
+    o 'CASE CaseWhen END',                                -> new Case($2)
+    o 'CASE CaseWhen CaseElse END',                       -> new Case($2, $3)
+  ]
+
+  CaseWhen: [
+    o 'WHEN Expression THEN Expression',                  -> new CaseWhen($2, $4)
+  ]
+
+  CaseWhens: [
+    o 'CaseWhen',                                         -> [$1],
+    o 'CaseWhens SEPARATOR CaseWhen',                     -> $1.concat($3)
+  ]
+
+  CaseElse: [
+    o 'ELSE Expression',                                  -> new CaseElse($2)
   ]
 
   Value: [
@@ -193,10 +210,12 @@ grammar =
 
   Function: [
     o "FUNCTION LEFT_PAREN AggregateArgumentList RIGHT_PAREN",     -> new FunctionValue($1, $3)
+    o "FUNCTION LEFT_PAREN Case RIGHT_PAREN",                      -> new FunctionValue($1, $3)
   ]
 
   UserFunction: [
     o "LITERAL LEFT_PAREN AggregateArgumentList RIGHT_PAREN",     -> new FunctionValue($1, $3, true)
+    o "LITERAL LEFT_PAREN Case RIGHT_PAREN",                      -> new FunctionValue($1, $3, true)
   ]
 
   AggregateArgumentList: [
@@ -218,6 +237,8 @@ grammar =
     o 'STAR',                                             -> new Star()
     o 'Expression',                                       -> new Field($1)
     o 'Expression AS Literal',                            -> new Field($1, $3)
+    o 'Case',                                             -> new Field($1)
+    o 'Case AS Literal',                                  -> new Field($1, $3)
   ]
 
 tokens = []

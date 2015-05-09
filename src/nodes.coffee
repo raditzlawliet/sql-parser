@@ -98,6 +98,22 @@ exports.FunctionValue = class FunctionValue
     else
       "#{@name.toUpperCase()}()"
 
+exports.Case = class Case
+  constructor: (@whens, @else) ->
+  toString: ->
+    if @else
+      "CASE #{@whens.toString()} #{@else.toString} END"
+    else
+      "CASE #{@whens.toString()} END"
+
+exports.CaseWhen = class CaseWhen
+  constructor: (@whenCondition, @resCondition) ->
+  toString: -> "WHEN #{@whenCondition} THEN @resCondition"
+
+exports.CaseElse = class CaseElse
+  constructor: (@elseCondition) ->
+  toString: -> "ELSE #{@elseCondition}"
+
 exports.Order = class Order
   constructor: (@orderings, @offset) ->
   toString: -> "ORDER BY #{@orderings.join(', ')}" +
