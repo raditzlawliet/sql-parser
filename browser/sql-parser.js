@@ -231,7 +231,7 @@
 
     WHITESPACE = /^[ \n\r]+/;
 
-    LITERAL = /^`?([a-z_][a-z0-9_]{0,})`?/i;
+    LITERAL = /^`?([a-z_][a-z0-9_]{0,}(\:(number|float|string|date|boolean))?)`?/i;
 
     PARAMETER = /^\$([a-z_][a-z0-9_]+(\:(number|float|string|date|boolean))?)/;
 

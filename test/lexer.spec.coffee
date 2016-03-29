@@ -11,6 +11,30 @@ describe "SQL Lexer", ->
       ["EOF", "", 1]
     ]
 
+  it "eats select queries with named values", ->
+    tokens = lexer.tokenize("select foo , bar from my_table")
+    tokens.should.eql [
+      ["SELECT", "select", 1]
+      ["LITERAL", "foo", 1]
+      ["SEPARATOR", ",", 1]
+      ["LITERAL", "bar", 1]
+      ["FROM", "from", 1]
+      ["LITERAL", "my_table", 1]
+      ["EOF", "", 1]
+    ]
+
+  it "eats select queries with named typed values", ->
+    tokens = lexer.tokenize("select foo:boolean, bar:number from my_table")
+    tokens.should.eql [
+      ["SELECT", "select", 1]
+      ["LITERAL", "foo:boolean", 1]
+      ["SEPARATOR", ",", 1]
+      ["LITERAL", "bar:number", 1]
+      ["FROM", "from", 1]
+      ["LITERAL", "my_table", 1]
+      ["EOF", "", 1]
+    ]
+
   it "eats select queries with with parameter", ->
     tokens = lexer.tokenize("select * from my_table where a = $foo")
     tokens.should.eql [
