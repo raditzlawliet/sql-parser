@@ -11,6 +11,34 @@ describe "SQL Lexer", ->
       ["EOF", "", 1]
     ]
 
+  it "eats select queries with with parameter", ->
+    tokens = lexer.tokenize("select * from my_table where a = $foo")
+    tokens.should.eql [
+      ["SELECT", "select", 1]
+      ["STAR", "*", 1]
+      ["FROM", "from", 1]
+      ["LITERAL", "my_table", 1]
+      ["WHERE", "where", 1]
+      ["LITERAL", "a", 1]
+      ["OPERATOR", "=", 1]
+      ["PARAMETER", "foo", 1]
+      ["EOF", "", 1]
+    ]
+
+  it "eats select queries with with parameter and type", ->
+    tokens = lexer.tokenize("select * from my_table where a = $foo:number")
+    tokens.should.eql [
+      ["SELECT", "select", 1]
+      ["STAR", "*", 1]
+      ["FROM", "from", 1]
+      ["LITERAL", "my_table", 1]
+      ["WHERE", "where", 1]
+      ["LITERAL", "a", 1]
+      ["OPERATOR", "=", 1]
+      ["PARAMETER", "foo:number", 1]
+      ["EOF", "", 1]
+    ]
+
   it "eats select queries with stars and multiplication", ->
     tokens = lexer.tokenize("select * from my_table where foo = 1 * 2")
     tokens.should.eql [
