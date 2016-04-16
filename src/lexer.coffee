@@ -67,6 +67,10 @@ class Lexer
 
   keywordToken: ->
     @tokenizeFromWord('SELECT') or
+    @tokenizeFromWord('INSERT') or
+    @tokenizeFromWord('INTO') or
+    @tokenizeFromWord('DEFAULT') or
+    @tokenizeFromWord('VALUES') or
     @tokenizeFromWord('DISTINCT') or
     @tokenizeFromWord('FROM') or
     @tokenizeFromWord('WHERE') or

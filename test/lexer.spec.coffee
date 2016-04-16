@@ -115,3 +115,46 @@ describe "SQL Lexer", ->
       [ 'LITERAL', 'id', 1 ]
       ["EOF", "", 1]
     ]
+
+  it "eats insert queries", ->
+    tokens = lexer.tokenize("insert into my_table values ('a',1)")
+    tokens.should.eql [
+      ["INSERT", "insert", 1]
+      ["INTO", "into", 1]
+      ["LITERAL", "my_table", 1]
+      ["VALUES", "values", 1]
+      [ 'LEFT_PAREN', '(', 1 ]
+      [ 'STRING', 'a', 1 ]
+      [ 'SEPARATOR', ',', 1 ]
+      [ 'NUMBER', '1', 1 ]
+      [ 'RIGHT_PAREN', ')', 1 ]
+      ["EOF", "", 1]
+    ]
+
+  it "eats insert queries with default values", ->
+    tokens = lexer.tokenize("insert into my_table default values")
+    tokens.should.eql [
+      ["INSERT", "insert", 1]
+      ["INTO", "into", 1]
+      ["LITERAL", "my_table", 1]
+      ["DEFAULT", "default", 1]
+      ["VALUES", "values", 1]
+      ["EOF", "", 1]
+    ]
+
+  it "eats insert queries with multiple rows", ->
+    tokens = lexer.tokenize("insert into my_table values ('a'),('b')")
+    tokens.should.eql [
+      ["INSERT", "insert", 1]
+      ["INTO", "into", 1]
+      ["LITERAL", "my_table", 1]
+      ["VALUES", "values", 1]
+      [ 'LEFT_PAREN', '(', 1 ]
+      [ 'STRING', 'a', 1 ]
+      [ 'RIGHT_PAREN', ')', 1 ]
+      [ 'SEPARATOR', ',', 1 ]
+      [ 'LEFT_PAREN', '(', 1 ]
+      [ 'STRING', 'b', 1 ]
+      [ 'RIGHT_PAREN', ')', 1 ]
+      ["EOF", "", 1]
+    ]
