@@ -73,6 +73,10 @@ class Lexer
 
   keywordToken: ->
     @tokenizeFromWord('SELECT') or
+    @tokenizeFromWord('INSERT') or
+    @tokenizeFromWord('INTO') or
+    @tokenizeFromWord('DEFAULT') or
+    @tokenizeFromWord('VALUES') or
     @tokenizeFromWord('DISTINCT') or
     @tokenizeFromWord('FROM') or
     @tokenizeFromWord('WHERE') or
@@ -116,7 +120,7 @@ class Lexer
   seperatorToken:   -> @tokenizeFromRegex('SEPARATOR', SEPARATOR)
   literalToken:     -> @tokenizeFromRegex('LITERAL', LITERAL, 1, 0)
   numberToken:      -> @tokenizeFromRegex('NUMBER', NUMBER)
-  parameterToken:   -> @tokenizeFromRegex('PARAMETER', PARAMETER)
+  parameterToken:   -> @tokenizeFromRegex('PARAMETER', PARAMETER, 1, 0)
   stringToken:      ->
     @tokenizeFromStringRegex('STRING', STRING, 1, 0) ||
     @tokenizeFromRegex('DBLSTRING', DBLSTRING, 1, 0)
@@ -157,8 +161,8 @@ class Lexer
   STAR                = /^\*/
   SEPARATOR           = /^,/
   WHITESPACE          = /^[ \n\r]+/
-  LITERAL             = /^`?([a-z_][a-z0-9_]{0,})`?/i
-  PARAMETER           = /^\$[0-9]+/
+  LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(\:(number|float|string|date|boolean))?)`?/i
+  PARAMETER           = /^\$([a-z_][a-z0-9_]+(\:(number|float|string|date|boolean))?)/
   NUMBER              = /^[0-9]+(\.[0-9]+)?/
   STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/
   DBLSTRING           = /^"([^\\"]*(?:\\.[^\\"]*)*)"/
