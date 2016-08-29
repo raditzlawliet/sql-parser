@@ -71,7 +71,7 @@ exports.ParameterValue = class ParameterValue
   constructor: (value) ->
     @value = value
     @index = parseInt(value.substr(1), 10) - 1
-  toString: -> "#{@value}"
+  toString: -> "$#{@value}"
 
 exports.ArgumentListValue = class ArgumentListValue
   constructor: (@value, @distinct=false) -> null
