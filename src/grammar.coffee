@@ -150,6 +150,7 @@ grammar =
     o 'Value SUB_SELECT_OP SubSelectExpression',          -> new Op($2, $1, $3)
     o 'SUB_SELECT_UNARY_OP SubSelectExpression',          -> new UnaryOp($1, $2)
     o 'SubSelectExpression'
+    o 'WhitepaceList',                                    -> new WhitepaceList($1)
     o 'Value'
   ]
 
@@ -171,6 +172,11 @@ grammar =
     o 'Parameter'
   ]
 
+  WhitepaceList: [
+    o 'Value Value',                                      -> [$1, $2]
+    o 'WhitepaceList Value',                              -> $1.push($2); $1
+  ]
+
   List: [
     o 'ArgumentList',                                     -> new ListValue($1)
   ]
@@ -180,7 +186,7 @@ grammar =
   ]
 
   Boolean: [
-    o 'BOOLEAN',                                           -> new BooleanValue($1)
+    o 'BOOLEAN',                                          -> new BooleanValue($1)
   ]
 
   Parameter: [
@@ -198,7 +204,7 @@ grammar =
   ]
 
   Function: [
-    o "FUNCTION LEFT_PAREN AggregateArgumentList RIGHT_PAREN",     -> new FunctionValue($1, $3)
+    o "FUNCTION LEFT_PAREN AggregateArgumentList RIGHT_PAREN",    -> new FunctionValue($1, $3)
   ]
 
   UserFunction: [
@@ -207,13 +213,13 @@ grammar =
   ]
 
   AggregateArgumentList: [
-    o 'ArgumentList',                                    -> new ArgumentListValue($1)
-    o 'DISTINCT ArgumentList',                           -> new ArgumentListValue($2, true)
+    o 'ArgumentList',                                     -> new ArgumentListValue($1)
+    o 'DISTINCT ArgumentList',                            -> new ArgumentListValue($2, true)
   ]
 
   ArgumentList: [
     o 'Expression',                                       -> [$1]
-    o 'ArgumentList SEPARATOR Value',                     -> $1.concat($3)
+    o 'ArgumentList SEPARATOR Expression',                -> $1.concat($3)
   ]
 
   Fields: [

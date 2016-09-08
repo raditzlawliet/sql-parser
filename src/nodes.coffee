@@ -51,7 +51,11 @@ exports.LiteralValue = class LiteralValue
       @nested = false
       @values = [@value]
   # TODO: Backtick quotes only supports MySQL, Postgres uses double-quotes
-  toString: -> "`#{@values.join('.')}`"
+  toString: (quote=true) ->
+    if quote
+      "`#{@values.join('.')}`"
+    else
+      "#{@values.join('.')}"
 
 exports.StringValue = class StringValue
   constructor: (@value, @quoteType="''") -> null
@@ -59,13 +63,24 @@ exports.StringValue = class StringValue
     escaped = if @quoteType is "'" then @value.replace /(^|[^\\])'/g, "$1''" else @value
     "#{@quoteType}#{escaped}#{@quoteType}"
 
-exports.NumberValue = class LiteralValue
+exports.NumberValue = class NumberValue
   constructor: (value) -> @value = Number(value)
   toString: -> @value.toString()
 
 exports.ListValue = class ListValue
-  constructor: (value) -> @value = value
+  constructor: (@value) -> null
   toString: -> "(#{@value.join(', ')})"
+
+exports.WhitepaceList = class WhitepaceList
+  constructor: (@value) -> null
+  toString: ->
+    # not backtick for literals
+    @value.map (value) ->
+      if value instanceof exports.LiteralValue
+        value.toString(false)
+      else
+        value.toString()
+    .join(' ')
 
 exports.ParameterValue = class ParameterValue
   constructor: (value) ->

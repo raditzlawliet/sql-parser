@@ -6,6 +6,11 @@
     "name": "Andy Kent",
     "email": "andy@forward.co.uk"
   },
+  "contributors": [{
+    "name": "Damien \"Mistic\" Sorel",
+    "email": "contact@git.strangeplanet.fr",
+    "url": "https://www.strangeplanet.fr"
+  }],
   "directories": {
     "lib" : "./lib"
   },

@@ -1,5 +1,5 @@
 lexer = require('../lib/lexer')
-parser = require("../lib/parser")
+parser = require('../lib/parser')
 
 parse = (query) ->
   parser.parse(lexer.tokenize(query))
@@ -403,3 +403,10 @@ describe "SQL Grammar", ->
         WHERE (`bar` = $12)
       """
 
+  describe "functions", ->
+    it "parses function with complex arguments", ->
+      parse('SELECT * FROM foo WHERE bar < DATE_SUB(NOW(), INTERVAL 14 DAYS)').toString().should.eql """
+      SELECT *
+        FROM `foo`
+        WHERE (`bar` < DATE_SUB(NOW(), INTERVAL 14 DAYS))
+      """
