@@ -254,12 +254,15 @@ describe "SQL Grammar", ->
       """
 
     it "parses UNIONs", ->
-      parse("select * from a union select * from b").toString().should.eql """
+      parse("select * from a union select * from b union select * from c").toString().should.eql """
       SELECT *
         FROM `a`
       UNION
       SELECT *
         FROM `b`
+      UNION
+      SELECT *
+        FROM `c`
       """
 
     it "parses UNION ALL", ->
@@ -358,5 +361,12 @@ describe "SQL Grammar", ->
       SELECT *
         FROM `foo`
         WHERE (`bar` = $12)
+      """
+
+  describe "Case When", ->
+    it "parses case when statements", ->
+      parse('select case when foo = \'a\' then a when foo = \'b\' then b else c end from table').toString().should.eql """
+      SELECT CASE WHEN (`foo` = 'a') THEN `a` WHEN (`foo` = 'b') THEN `b` ELSE `c` END
+        FROM `table`
       """
 

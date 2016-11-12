@@ -61,7 +61,7 @@ grammar =
 
   Unions: [
     o 'Union',                                            -> [$1]
-    o 'Unions Union',                                     -> $1.concat($3)
+    o 'Unions Union',                                     -> $1.concat($2)
   ]
 
   Union: [
@@ -152,8 +152,8 @@ grammar =
   ]
 
   CaseStatement: [
-    o 'CASE CaseWhen END',                                -> new Case($2)
-    o 'CASE CaseWhen CaseElse END',                       -> new Case($2, $3)
+    o 'CASE CaseWhens END',                               -> new Case($2)
+    o 'CASE CaseWhens CaseElse END',                      -> new Case($2, $3)
   ]
 
   CaseWhen: [
@@ -161,8 +161,8 @@ grammar =
   ]
 
   CaseWhens: [
-    o 'CaseWhen',                                         -> [$1],
-    o 'CaseWhens SEPARATOR CaseWhen',                     -> $1.concat($3)
+    o 'CaseWhens CaseWhen',                               -> $1.concat($2)
+    o 'CaseWhen',                                         -> [$1]
   ]
 
   CaseElse: [
