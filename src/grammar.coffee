@@ -61,7 +61,7 @@ grammar =
 
   Unions: [
     o 'Union',                                            -> [$1]
-    o 'Unions Union',                                     -> $1.concat($3)
+    o 'Unions Union',                                     -> $1.concat($2)
   ]
 
   Union: [
@@ -138,7 +138,6 @@ grammar =
     o 'HAVING Expression',                                -> new Having($2)
   ]
 
-
   Expression: [
     o 'LEFT_PAREN Expression RIGHT_PAREN',                -> $2
     o 'Expression MATH Expression',                       -> new Op($2, $1, $3)
@@ -151,11 +150,30 @@ grammar =
     o 'SUB_SELECT_UNARY_OP SubSelectExpression',          -> new UnaryOp($1, $2)
     o 'SubSelectExpression'
     o 'WhitepaceList',                                    -> new WhitepaceList($1)
+    o 'CaseStatement'
     o 'Value'
   ]
 
   BetweenExpression: [
     o 'Expression CONDITIONAL Expression',                -> new BetweenOp([$1, $3])
+  ]
+
+  CaseStatement: [
+    o 'CASE CaseWhens END',                               -> new Case($2)
+    o 'CASE CaseWhens CaseElse END',                      -> new Case($2, $3)
+  ]
+
+  CaseWhen: [
+    o 'WHEN Expression THEN Expression',                  -> new CaseWhen($2, $4)
+  ]
+
+  CaseWhens: [
+    o 'CaseWhens CaseWhen',                               -> $1.concat($2)
+    o 'CaseWhen',                                         -> [$1]
+  ]
+
+  CaseElse: [
+    o 'ELSE Expression',                                  -> new CaseElse($2)
   ]
 
   SubSelectExpression: [
@@ -210,6 +228,7 @@ grammar =
   UserFunction: [
     o "LITERAL LEFT_PAREN RIGHT_PAREN",                           -> new FunctionValue($1, null, true)
     o "LITERAL LEFT_PAREN AggregateArgumentList RIGHT_PAREN",     -> new FunctionValue($1, $3, true)
+    o "LITERAL LEFT_PAREN Case RIGHT_PAREN",                      -> new FunctionValue($1, $3, true)
   ]
 
   AggregateArgumentList: [
