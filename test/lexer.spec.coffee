@@ -158,3 +158,23 @@ describe "SQL Lexer", ->
       [ 'RIGHT_PAREN', ')', 1 ]
       ["EOF", "", 1]
     ]
+
+  it "eats insert queries with multiple rows and column names", ->
+    tokens = lexer.tokenize("insert into my_table (foo) values ('a'),('b')")
+    tokens.should.eql [
+      ["INSERT", "insert", 1]
+      ["INTO", "into", 1]
+      ["LITERAL", "my_table", 1]
+      [ 'LEFT_PAREN', '(', 1 ]
+      [ 'LITERAL', 'foo', 1 ]
+      [ 'RIGHT_PAREN', ')', 1 ]
+      ["VALUES", "values", 1]
+      [ 'LEFT_PAREN', '(', 1 ]
+      [ 'STRING', 'a', 1 ]
+      [ 'RIGHT_PAREN', ')', 1 ]
+      [ 'SEPARATOR', ',', 1 ]
+      [ 'LEFT_PAREN', '(', 1 ]
+      [ 'STRING', 'b', 1 ]
+      [ 'RIGHT_PAREN', ')', 1 ]
+      ["EOF", "", 1]
+    ]
