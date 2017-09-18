@@ -7,6 +7,10 @@
     "name": "Damien \"Mistic\" Sorel",
     "email": "contact@git.strangeplanet.fr",
     "homepage": "https://www.strangeplanet.fr"
+  }, {
+    "name": "Davide \"Duke\" Graziosi",
+    "email": "davide.graziosi@exprivia.it",
+    "homepage": "https://www.strangeplanet.fr"
   }],
   "description": "Lexer and Parser for SQL Syntax",
   "main": "browser/sql-parser.js",
@@ -20,7 +24,7 @@
   "homepage": "https://github.com/mistic100/sql-parser",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mistic100/sql-parser.git"
+    "url": "git://github.com/davegraziosi/sql-parser.git"
   },
   "ignore": [
     "**/.*",
