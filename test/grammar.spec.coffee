@@ -225,9 +225,9 @@ describe "SQL Grammar", ->
 
     it "supports nested fields using dot syntax", ->
       parse("SELECT a.b.c FROM my_table WHERE a.b > 2").toString().should.eql """
-      SELECT `a.b.c`
+      SELECT `a`.`b`.`c`
         FROM `my_table`
-        WHERE (`a.b` > 2)
+        WHERE (`a`.`b` > 2)
       """
 
     it "supports time window extensions", ->
@@ -259,7 +259,7 @@ describe "SQL Grammar", ->
       SELECT *
         FROM `a`
         JOIN `b`
-          ON (`a.id` = `b.id`)
+          ON (`a`.`id` = `b`.`id`)
       """
 
     it "parses right outer joins", ->
@@ -267,7 +267,7 @@ describe "SQL Grammar", ->
       SELECT *
         FROM `a`
         RIGHT OUTER JOIN `b`
-          ON (`a.id` = `b.id`)
+          ON (`a`.`id` = `b`.`id`)
       """
 
     it "parses multiple joins", ->
@@ -275,9 +275,9 @@ describe "SQL Grammar", ->
       SELECT *
         FROM `a`
         JOIN `b`
-          ON (`a.id` = `b.id`)
+          ON (`a`.`id` = `b`.`id`)
         JOIN `c`
-          ON (`a.id` = `c.id`)
+          ON (`a`.`id` = `c`.`id`)
       """
 
     it "parses UNIONs", ->
