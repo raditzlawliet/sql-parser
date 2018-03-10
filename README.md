@@ -14,7 +14,7 @@ The package is distributed on NPM and can be installed with...
 
     npm install sql-parser-mistic
     
-It is also availabel on Bower :
+It is also available on Bower :
 
     npm install sql-parser
 

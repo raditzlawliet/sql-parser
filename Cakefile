@@ -8,7 +8,7 @@ header = """
 /*!
  * SQLParser #{pkg.version}
  * Copyright 2012-2015 Andy Kent <andy@forward.co.uk>
- * Copyright 2015-2016 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
+ * Copyright 2015-2018 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
 """
