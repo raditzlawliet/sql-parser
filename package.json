@@ -1,7 +1,7 @@
 {
   "name": "sql-parser-mistic",
   "description": "Lexer and Parser for SQL Syntax",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Andy Kent",
     "email": "andy@forward.co.uk"

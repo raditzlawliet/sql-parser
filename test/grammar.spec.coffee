@@ -148,6 +148,13 @@ describe "SQL Grammar", ->
         WHERE ((`foo` LIKE '%a') AND (`bar` NOT LIKE 'b%'))
       """
 
+    it "parses WHERE with ILIKE and NOT ILIKE clauses", ->
+      parse("SELECT * FROM my_table WHERE foo ILIKE '%a' AND bar NOT ILIKE 'b%'").toString().should.eql """
+      SELECT *
+        FROM `my_table`
+        WHERE ((`foo` ILIKE '%a') AND (`bar` NOT ILIKE 'b%'))
+      """
+
     it "parses WHERE with ORDER BY clauses", ->
       parse("SELECT * FROM my_table WHERE x > 1 ORDER BY y").toString().should.eql """
       SELECT *
