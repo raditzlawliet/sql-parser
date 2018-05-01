@@ -1,4 +1,4 @@
-{spawn, exec} = require 'child_process'
+spawn = require('cross-spawn')
 fs = require('fs')
 UglifyJS = require('uglify-js')
 require('coffee-script/register')

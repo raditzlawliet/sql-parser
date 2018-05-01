@@ -49,7 +49,7 @@ describe "SQL Parser", ->
       )
 
     it "parses basic WHERE", ->
-      ast = parse("SELECT * FROM my_table WHERE id >= 5 AND name LIKE 'foo' AND ( bar IS NOT NULL OR date NOT BETWEEN 41 AND 43 )")
+      ast = parse("SELECT * FROM my_table WHERE id >= 5 AND name LIKE 'foo' AND ( bar IS NOT NULL OR date BETWEEN 41 AND 43 )")
       ast.where.should.eql new nodes.Where(
         new nodes.Op(
           'AND'

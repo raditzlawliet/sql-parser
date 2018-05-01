@@ -1,5 +1,5 @@
 /*!
- * SQLParser 1.2.1
+ * SQLParser 1.2.2
  * Copyright 2012-2015 Andy Kent <andy@forward.co.uk>
  * Copyright 2015-2018 Damien "Mistic" Sorel (https://www.strangeplanet.fr)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
@@ -238,7 +238,7 @@
 
     SQL_SORT_ORDERS = ['ASC', 'DESC'];
 
-    SQL_OPERATORS = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'NOT LIKE', 'ILIKE', 'NOT ILIKE', 'IS', 'IS NOT', 'REGEXP', 'NOT REGEXP'];
+    SQL_OPERATORS = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'NOT LIKE', 'ILIKE', 'NOT ILIKE', 'IS NOT', 'IS', 'REGEXP', 'NOT REGEXP'];
 
     SUB_SELECT_OP = ['IN', 'NOT IN', 'ANY', 'ALL', 'SOME'];
 

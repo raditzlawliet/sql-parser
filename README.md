@@ -1,7 +1,6 @@
 SQL Parser
 ==========
 
-[![Bower version](https://img.shields.io/bower/v/sql-parser.svg?style=flat-square)](https://github.com/mistic100/sql-parser)
 [![NPM version](https://img.shields.io/npm/v/sql-parser-mistic.svg?style=flat-square)](https://www.npmjs.com/package/sql-parser-mistic)
 
 SQL Parser is a lexer, grammar and parser for SQL written in JS. Currently it is only capable of parsing fairly basic SELECT queries but full SQL support will hopefully come in time. See the specs for examples of currently supported queries.
@@ -16,12 +15,12 @@ The package is distributed on NPM and can be installed with...
     
 It is also available on Bower :
 
-    npm install sql-parser
+    bower install sql-parser
 
 To build from source you'll need to run the following from the root of the project...
 
     npm install
-    cake build
+    npm run build
 
 Tests are written using Mocha and can be run with...
 

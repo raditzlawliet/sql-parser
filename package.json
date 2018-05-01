@@ -1,7 +1,7 @@
 {
   "name": "sql-parser-mistic",
   "description": "Lexer and Parser for SQL Syntax",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": {
     "name": "Andy Kent",
     "email": "andy@forward.co.uk"
@@ -24,6 +24,7 @@
   ],
   "devDependencies": {
     "coffee-script": "1.8.0",
+    "cross-spawn": "^6.0.5",
     "jison": "0.4.15",
     "mocha": "2.0.1",
     "should": "4.1.0",
