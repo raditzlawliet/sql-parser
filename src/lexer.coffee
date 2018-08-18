@@ -15,13 +15,13 @@ class Lexer
                        @sortOrderToken() or
                        @seperatorToken() or
                        @operatorToken() or
+                       @numberToken() or
                        @mathToken() or
                        @dotToken() or
                        @conditionalToken() or
                        @betweenToken() or
                        @subSelectOpToken() or
                        @subSelectUnaryOpToken() or
-                       @numberToken() or
                        @stringToken() or
                        @parameterToken() or
                        @parensToken() or
@@ -170,7 +170,7 @@ class Lexer
   WHITESPACE          = /^[ \n\r]+/
   LITERAL             = /^`?([a-z_][a-z0-9_]{0,}(\:(number|float|string|date|boolean))?)`?/i
   PARAMETER           = /^\$([a-z0-9_]+(\:(number|float|string|date|boolean))?)/
-  NUMBER              = /^[0-9]+(\.[0-9]+)?/
+  NUMBER              = /^[+-]?[0-9]+(\.[0-9]+)?/
   STRING              = /^'((?:[^\\']+?|\\.|'')*)'(?!')/
   DBLSTRING           = /^"([^\\"]*(?:\\.[^\\"]*)*)"/
 

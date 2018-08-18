@@ -83,6 +83,35 @@ describe "SQL Lexer", ->
       ["EOF", ""]
     ]
 
+  it "eats select queries with negative numbers", ->
+    tokens = lexer.tokenize("select * from my_table where foo < -5")
+    clean(tokens).should.eql [
+      ["SELECT", "select"]
+      ["STAR", "*"]
+      ["FROM", "from"]
+      ["LITERAL", "my_table"]
+      ["WHERE", "where"]
+      ["LITERAL", "foo"]
+      ["OPERATOR", "<"]
+      ["NUMBER", "-5"]
+      ["EOF", ""]
+    ]
+
+  it "eats select queries with negative numbers and minus sign", ->
+    tokens = lexer.tokenize("select * from my_table where foo < -5 - 5")
+    clean(tokens).should.eql [
+      ["SELECT", "select"]
+      ["STAR", "*"]
+      ["FROM", "from"]
+      ["LITERAL", "my_table"]
+      ["WHERE", "where"]
+      ["LITERAL", "foo"]
+      ["OPERATOR", "<"]
+      ["NUMBER", "-5"]
+      ["MATH", "-"]
+      ["NUMBER", "5"]
+      ["EOF", ""]
+    ]
 
   it "eats sub selects", ->
     tokens = lexer.tokenize("select * from (select * from my_table) t")

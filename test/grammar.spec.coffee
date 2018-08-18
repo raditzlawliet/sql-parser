@@ -196,6 +196,13 @@ describe "SQL Grammar", ->
         ORDER BY COUNT(`y`) ASC
       """
 
+    it "parses WHERE with negative numbers and operaions", ->
+      parse("SELECT * FROM my_table WHERE foo < -5 - 4").toString().should.eql """
+      SELECT *
+        FROM `my_table`
+        WHERE (`foo` < (-5 - 4))
+      """
+
     it "parses GROUP BY and HAVING clauses", ->
       parse("SELECT * FROM my_table GROUP BY x, y HAVING COUNT(`y`) > 1").toString().should.eql """
       SELECT *
