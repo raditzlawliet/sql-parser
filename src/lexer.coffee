@@ -155,7 +155,9 @@ class Lexer
   regexEscape: (str) ->
     str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
 
-  SQL_FUNCTIONS       = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM']
+  SQL_FUNCTIONS       = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM', 
+    "SIZE", "MAP_KEYS", "MAP_VALUES", "SORT_ARRAY", "UNIX_TIMESTAMP", "TO_DATE", "YEAR", "QUARTER", "MONTH", "HOUR", "MINUTE", "DATE_SUB", "CURRENT_DATE", "LAST_DAY", "TRUNC", "ROUND", "BOUND", "FLOOR", "CEIL", "CEILING", "RAND", "ISNULL", "ISNOTNULL", "REVERSE", "RPAD", "RTRIM", "SPACE", "SPLIT", "STR_TO_MAP"
+  ]
   SQL_SORT_ORDERS     = ['ASC', 'DESC']
   SQL_OPERATORS       = ['=', '!=', '>=', '>', '<=', '<>', '<', 'LIKE', 'NOT LIKE', 'ILIKE', 'NOT ILIKE', 'IS NOT', 'IS', 'REGEXP', 'NOT REGEXP']
   SUB_SELECT_OP       = ['IN', 'NOT IN', 'ANY', 'ALL', 'SOME']

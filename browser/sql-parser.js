@@ -28,7 +28,7 @@
       this.currentOffset = 0;
       i = 0;
       while (this.chunk = sql.slice(i)) {
-        bytesConsumed = this.keywordToken() || this.starToken() || this.booleanToken() || this.functionToken() || this.windowExtension() || this.sortOrderToken() || this.seperatorToken() || this.operatorToken() || this.mathToken() || this.dotToken() || this.conditionalToken() || this.betweenToken() || this.subSelectOpToken() || this.subSelectUnaryOpToken() || this.numberToken() || this.stringToken() || this.parameterToken() || this.parensToken() || this.whitespaceToken() || this.literalToken();
+        bytesConsumed = this.keywordToken() || this.starToken() || this.booleanToken() || this.functionToken() || this.windowExtension() || this.sortOrderToken() || this.seperatorToken() || this.operatorToken() || this.numberToken() || this.mathToken() || this.dotToken() || this.conditionalToken() || this.betweenToken() || this.subSelectOpToken() || this.subSelectUnaryOpToken() || this.stringToken() || this.parameterToken() || this.parensToken() || this.whitespaceToken() || this.literalToken();
         if (bytesConsumed < 1) {
           throw new Error("NOTHING CONSUMED: Stopped at - '" + (this.chunk.slice(0, 30)) + "'");
         }
@@ -234,7 +234,7 @@
       return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     };
 
-    SQL_FUNCTIONS = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM'];
+    SQL_FUNCTIONS = ['AVG', 'COUNT', 'MIN', 'MAX', 'SUM', "SIZE", "MAP_KEYS", "MAP_VALUES", "SORT_ARRAY", "UNIX_TIMESTAMP", "TO_DATE", "YEAR", "QUARTER", "MONTH", "HOUR", "MINUTE", "DATE_SUB", "CURRENT_DATE", "LAST_DAY", "TRUNC", "ROUND", "BOUND", "FLOOR", "CEIL", "CEILING", "RAND", "ISNULL", "ISNOTNULL", "REVERSE", "RPAD", "RTRIM", "SPACE", "SPLIT", "STR_TO_MAP"];
 
     SQL_SORT_ORDERS = ['ASC', 'DESC'];
 
@@ -264,7 +264,7 @@
 
     PARAMETER = /^\$([a-z0-9_]+(\:(number|float|string|date|boolean))?)/;
 
-    NUMBER = /^[0-9]+(\.[0-9]+)?/;
+    NUMBER = /^[+-]?[0-9]+(\.[0-9]+)?/;
 
     STRING = /^'((?:[^\\']+?|\\.|'')*)'(?!')/;
 

@@ -3,3 +3,4 @@ node_modules
 *.swp
 *.iml
 .idea
+/package-lock.json
